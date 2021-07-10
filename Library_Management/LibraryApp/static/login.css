@@ -1,0 +1,79 @@
+@import url('https://fonts.googleapis.com/css2?family=Mukta:wght@300&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Mukta:wght@300&display=swap');
+
+* {
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    background-image: url('Library-bg.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;   
+}
+
+.container {
+    background-color: #fefcfa;
+    padding: 3%;
+    width: 27vw;
+    height: 55vh;
+    position:absolute;
+    top: 29%;
+    left: 38vw;
+    border-radius: 20px;
+    border: 3px solid #e0840ab8;
+}
+.container h1{
+    font-family: 'Mukta', sans-serif;
+    display: inline-block;
+    font-size: 40px;
+    border-bottom: 4px solid #db9436;
+    margin-bottom: 10px;
+    
+    width: 50%;
+}
+
+
+.box{
+    width: 100%;
+    border-bottom:2px solid #e0840ab8;
+    margin:22px 0px ;
+}
+.box input{
+    background: none;
+    width: 75%;
+    font-family: 'Mukta', sans-serif;
+    padding: 5px 10px;
+    font-size: 20px;
+    border: none;
+    outline:none;
+    color: black; 
+
+}
+
+.box i{
+    
+    width:25px;
+    color:#ce4c4c;
+    text-align: center;
+    
+}
+.button-Signin{
+    width: 35.5%;
+}
+.box-adminLogin{
+    margin: 7% 0;
+}
+/* .box-NewUser{
+    margin-top:5%;
+} */
+
+/* .box-NewUser a{
+    text-decoration: none;
+    color: black;
+} */
+
+
+
+
