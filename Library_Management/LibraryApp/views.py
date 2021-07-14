@@ -15,6 +15,7 @@ def register(request):
 
 
 
+
 def adminLogin(request):
     if request.method == 'POST':
         email = request.POST.get('email')
