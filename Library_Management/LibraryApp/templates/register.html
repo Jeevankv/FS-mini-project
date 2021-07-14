@@ -14,33 +14,76 @@
 
     <!-- fontawesome -->
     <script src="https://kit.fontawesome.com/6de530a630.js" crossorigin="anonymous"></script>
-    <title>Admin Login</title>
+    <title>Register</title>
     <link rel="stylesheet" href="{% static 'register.css' %}">
 </head>
 
 <body>
+<!-- <div class="messagebox">
+{% if messages %}
+{% for message in messages %}
+   {% if message.tags == 'error' %}
+        <div class="alert alert-danger messagebox" role="alert">
+             {{ message }}
+        </div>
+    
+    {% else%}
+   <div class="alert alert-{{message.tags}} messagebox" role="alert">
+  {{ message }}
+</div>
+{% endif %}
+
+    {% endfor %}
+{% endif %}
+</div> -->
+
+
+
+{% if messages %}
+<!-- {% for message in messages %} -->
+
+<div class="alert alert-{{message.tags}} alert-dismissible fade show" role="alert">
+    <strong>{{ message }}</strong> 
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+  <!-- {% endfor %} -->
+  {% endif %}
+
+
+
 
     <div class="container">
         <h1>Register</h1>
-        <form method="POST" action="">
+        <form method="POST" action="{% url 'library-register'%}">
             {% csrf_token %}
-        <div class="box">
-            <label for="uid"> Your ID :</label>
-            <input type="number" id="uid" name="id">
-        </div>
-        <div class="box">
-            <label for="Name">Name :</label>
-            <input type="text" id="Name" name="name">
-        </div>
-        <div class="box">
-            <i class="fa fa-envelope"></i>
-            <input type="email" name="email" id="email" placeholder="Email">
-        </div>
-        <div class="box">
-            <i class="fa fa-key"></i>
-            <input type="password" name="password" id="password" placeholder="Enter your password">
-        </div>
-        <button type="submit" class="button-Signin btn btn-dark">Register</button>
-    </form>
+            <div class="box">
+                <label for="uid"> Your ID :</label>
+                <input type="number" id="uid" name="id" >
+            </div>
+            <div class="box">
+                <label for="Name">Name :</label>
+                <input type="text" id="Name" name="name">
+            </div>
+            <div class="box">
+                <i class="fa fa-envelope"></i>
+                <input type="email" name="email" id="email" placeholder="Email">
+            </div>
+            <div class="box">
+                <i class="fa fa-key"></i>
+                <input type="password" name="password" id="password" placeholder="Enter your password">
+            </div>
+            <button type="submit" class="button-Signin btn btn-dark">Register</button>
+        </form>
         <!-- <a class="btn btn-outline-dark" href="{% url 'library-login' %}">Login</a> -->
     </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous">
+    var alertList = document.querySelectorAll('.alert')
+alertList.forEach(function (alert) {
+  new bootstrap.Alert(alert)
+})</script>
+</body>
+
+</html>
