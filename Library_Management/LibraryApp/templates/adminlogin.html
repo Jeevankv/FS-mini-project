@@ -19,6 +19,8 @@
 
     <div class="container">
       <h1>Admin</h1>
+      <form action="" method="POST">
+        {% csrf_token %}
       <div class="box">
         <i class="fa fa-envelope"></i>
         <input type="email" name="email" id="email" placeholder="Email">
@@ -27,8 +29,9 @@
         <i class="fa fa-key"></i>
         <input type="password" name="password" id="password" placeholder="Enter your password">
     </div>
-    <button class="button-Signin btn btn-dark">Sign In</button>
-    
+
+    <button class="button-Signin btn btn-dark" type="submit">Sign In</button>
+     </form>
     
 
     

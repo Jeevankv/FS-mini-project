@@ -1,0 +1,71 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+body{
+    background-image: url('Library-bg.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+nav{
+    display: flex;
+    background-color: grey;
+    height: 10vh;
+    width: 100vw;
+    justify-content: center;
+    align-items: center;
+    
+}
+nav h1{
+    text-align: center;
+    font-family: sans-serif;
+    font-size: 34px;
+    color: rgb(209, 159, 93);   
+    font-weight: bold;
+}
+nav a{
+    position: absolute;
+    right: 2vw;
+    text-decoration: none;
+    font-family: sans-serif;
+    font-size: 34px;
+    color: rgb(209, 159, 93);   
+}
+
+main{
+    
+    display: grid;
+    column-gap: 30px ;
+    grid-template-columns: 28% 28% 28%;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.container-box      
+{
+    display: grid;
+    width: 93%;
+    height: 35vh;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    margin-top: 23vh;
+    border: 4px solid burlywood;
+    background-color: lightgray;
+    
+}
+/* .box2{
+   
+    border: 2px solid lightcoral;
+    background-color: lightgoldenrodyellow;
+
+}
+.box3{
+    
+    border: 2px solid lightcoral;
+    background-color: lightgoldenrodyellow;
+
+} */
+
+
