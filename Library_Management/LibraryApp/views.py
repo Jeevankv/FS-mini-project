@@ -6,7 +6,30 @@ from django.core.files import File
 
 
 def login(request):
-    return render(request, 'login.html')
+    if request.method == 'POST':
+        uid = request.POST.get('uid')
+        password = request.POST.get('password')
+        pos = main.binary_search('index.txt', str(uid))
+        if pos == -1:
+             messages.warning(request,"User ID is Incorrect!. Please Re-enter")  
+             return redirect('library-login')
+        else:
+            f2 = open ('Userprofile.txt', 'r')
+            f2.seek(int(pos))
+            l = f2.readline()
+            l = l.rstrip()
+            word = l.split('|')
+            if(main.verify_password(word[1], password)):
+                messages.success(request,"Login Successful!")  
+                return redirect('library-home')
+            else:
+                messages.warning(request,"Password that you have entered is Incorrect.Please Re-enter") 
+                return redirect('library-login')
+            f2.close()
+
+
+    else:
+        return render(request, 'login.html')
 
 def register(request):
 
@@ -60,3 +83,7 @@ def adminLogin(request):
 
 def adminhome(request):
     return render(request, 'adminhome.html')
+
+
+def libraryindex(request):
+    return render(request, 'index.html')
