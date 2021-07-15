@@ -6,4 +6,6 @@ urlpatterns = [
     path('adminlogin/', views.adminLogin, name = 'library-admin'),
     path('adminhome/', views.adminhome, name = 'library-adminhome'),
     path('libraryhome/', views.libraryindex, name = 'library-home'),
+    path('addbooks/', views.addbooks, name = 'library-addbooks'),
+    path('login/', views.reopen_login, name = 'library-reopenlogin'),
 ]

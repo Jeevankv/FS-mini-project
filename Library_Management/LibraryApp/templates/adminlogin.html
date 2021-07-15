@@ -19,7 +19,7 @@
 
     <div class="container">
       <h1>Admin</h1>
-      <form action="" method="POST">
+      <form action="{% url 'library-admin'%}" method="POST">
         {% csrf_token %}
       <div class="box">
         <i class="fa fa-envelope"></i>

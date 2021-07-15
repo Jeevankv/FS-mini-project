@@ -14,11 +14,11 @@
 <body>
     <nav>
         <h1> Library Admin </h1>
-        <a href="{% url 'library-login' %}" class="btn btn-danger">Logout</a>
+        <a href="{% url 'library-reopenlogin' %}" class="btn btn-danger">Logout</a>
     </nav>
     <main>
         <div class="container-box">
-           <a href="#" class="btn btn-success btn-lg">Add Books</a>      
+           <a href="{% url 'library-addbooks' %}" class="btn btn-success btn-lg">Add Books</a>      
         </div>
         <div class="container-box">
             <a href="#" class="btn btn-danger btn-lg">Delete Books</a>

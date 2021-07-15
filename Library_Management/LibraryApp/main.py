@@ -55,3 +55,5 @@ def hash_password(password):
                                 salt, 100000)
     pwdhash = binascii.hexlify(pwdhash)
     return (salt + pwdhash).decode('ascii')
+
+
