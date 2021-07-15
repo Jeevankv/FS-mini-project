@@ -1,8 +1,8 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from . import main
-from django.core.files import File
 
+from datetime import timedelta, date
 
 
 def login(request):
@@ -87,7 +87,7 @@ def adminhome(request):
     return render(request, 'adminhome.html')
 
 
-def libraryindex(request):
+def libraryhome(request):
     return render(request, 'index.html')
 
 
@@ -148,7 +148,75 @@ def reopen_login(request):
 	return render(request,'reopenLogin.html')
 
 def borrowbook(request):
-    pass
+
+    headings = ("ID","Title","Author","Availability")
+    data = list()
+    f1 = open('Bindex.txt', 'r')
+    f = open ("BData.txt", 'r')
+    norecord = 0
+    for line in f1:
+        norecord += 1
+        line = line.rstrip('\n')
+        word = line.split('|')
+        f.seek(int(word[1]))
+        line1 = f.readline().rstrip()
+        word1 = line1.split('|')
+        data.append((word1[0],word1[1],word1[2],word1[3]))
+       
+    f.close()
+    
+    if request.method == 'POST':
+        count = 0
+        f = open('Record.txt', 'r')
+        for l in f:
+            l = l.split('|')
+            if l[0] ==  id:
+                count += 1
+
+        if count >= 3:
+            messages.warning(request,"Cannot Borrow more than 3 Books")
+            return redirect('library-borrowbook')
+
+        else:
+            today = date.today()
+            enddate = today+timedelta(days=7)
+            bbook = request.POST.get('bbid')
+
+            if len(str(bbook)) == 0:
+                messages.warning(request,"You did not type anything")
+                return redirect('library-borrowbook')
+
+            pos = main.binary_search('Bindex.txt', bbook)
+            if pos == -1:
+                messages.warning(request,"The book that you had entered is not in our database,sorry,please enter a different book")
+                return redirect('library-borrowbook')
+            else:
+                f2 = open('BData.txt', 'r+')
+                f2.seek(pos)
+                l2 = f2.readline()
+                l2 = l2.rstrip('\n')
+                w2 = l2.split('|')
+                if(w2[3] == 'Y'):
+                    l3 = w2[0] + '|' + w2[1] + '|' + w2[2] + '|' + 'N|#' 
+                    f2.seek(pos)
+                    f2.write(l3)
+                    f2.close() 
+                    messages.success(request,"The book you have selected has been successfully borrowed. Please return it by:" +'\n'+ str(enddate))
+
+                    buf = id + '|' + bbook+ '|#\n'
+                    f3 = open('Record.txt', 'a')
+                    f3.write(buf)
+                    f3.close()
+                    main.key_sort('Record.txt')
+                    return redirect('library-borrowbook')
+                else:
+                    messages.warning(request,"This book is currently unavailable, please select another book")
+                    return redirect('library-borrowbook')
+
+
+
+    else:
+        return render(request, 'borrow.html',{"data":data,"headings":headings})
 
 def returnbook(request):
-    pass
+    return render(request, 'return.html')
