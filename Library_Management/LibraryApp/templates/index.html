@@ -1,4 +1,4 @@
-
+{% load static%}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Library | Home</title>
+    <link rel="stylesheet" href="{% static 'index.css' %}">
 
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -14,6 +15,20 @@
 </head>
 
 <body>
+<nav>
+  <ul>
+    <li>
+      <a href="{% url 'library-login'%}">Home</a>
+      <a href="#">Borrow Books</a>
+      <a href="#">Return Books</a>
+      <form action="#">
+        <input type="search" placeholder="Search">
+        <button class="btn btn-outline-warning">Search</button>
+      </form>
+      <a class="btn btn-danger logout" href="{% url 'library-login' %}">Logout</a>
+    </li>
+  </ul>
+</nav>
     {% if messages %}
   {% for message in messages %}
   
@@ -23,8 +38,18 @@
     </div>
     {% endfor %}
   {% endif %}
-  
-    
+ <main>
+
+  <h1>JSS Library</h1>
+  <h2> Welcome!! {{uid}}</h2>
+
+ </main> 
+
+ <footer>
+
+
+
+ </footer>
 
 
 

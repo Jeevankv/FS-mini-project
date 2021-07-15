@@ -24,12 +24,12 @@ def login(request):
                 return redirect('library-home')
             else:
                 messages.warning(request,"Password that you have entered is Incorrect.Please Re-enter") 
-                return redirect('library-login')
+                return redirect('library-login' )
             f2.close()
 
 
     else:
-        return render(request, 'login.html')
+        return render(request, 'login.html',)
 
 def register(request):
 
@@ -146,3 +146,9 @@ def reopen_login(request):
 			f8.write(line1)
 	f8.close()
 	return render(request,'reopenLogin.html')
+
+def borrowbook(request):
+    pass
+
+def returnbook(request):
+    pass
