@@ -12,6 +12,12 @@ body {
     background-repeat: no-repeat;
     background-size: cover;   
 }
+.messagebox{
+    width: 100vw;
+    position: absolute;
+    top: 0;
+    text-align: center;
+}
 
 .container {
     background-color: #fefcfa;

@@ -10,6 +10,7 @@ def login(request):
 
 def register(request):
 
+    if request.method == 'POST':
         uid = request.POST.get('id')
         name = request.POST.get('name')
         email = request.POST.get('email')
@@ -17,19 +18,19 @@ def register(request):
     
     
         if len(str(uid))==0 or len(str(name)) == 0 or len(str(email)) == 0 or len(str(password)) == 0:
-            messages.error(request,"You left one or more fields blank")
+            messages.warning(request,"You left one or more fields blank")
             return redirect('library-register')  
 
         pos = main.binary_search('index.txt', str(uid))
         if pos!=-1:
-            messages.success(request,"Already registered. Choose a different ID")
-            
-        f2 = open('Userprofile.txt','a')
-        pos = f2.tell()
-        f3 = open('index.txt','a')
-        buf = str(uid) + '|' + main.hash_password(str(password)) + '|' + str(name) + '|' + str(email) + '|' + '#'
-        if str(uid) != 'None':
-            messages.success(request,"Registration Successful!")  
+            messages.warning(request,"Already registered. Choose a different ID")
+            return render(request, 'register.html')
+        else:
+            f2 = open('Userprofile.txt','a')
+            pos = f2.tell()
+            f3 = open('index.txt','a')
+            buf = str(uid) + '|' + main.hash_password(str(password)) + '|' + str(name) + '|' + str(email) + '|' + '#'
+
             f2.write(buf)
             f2.write('\n')
             buf = str(uid) + '|' + str(pos) + '|' + '#'
@@ -38,11 +39,12 @@ def register(request):
             f3.close()
             f2.close()
             main.key_sort('index.txt')
-            return redirect('library-register')  
+            messages.success(request,"Registration Successful!") 
+            return redirect('library-login')  
              
+
+    else: 
         return render(request, 'register.html')
-
-
 
 def adminLogin(request):
     if request.method == 'POST':
