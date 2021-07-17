@@ -14,6 +14,7 @@ def login(request):
              messages.warning(request,"User ID is Incorrect!. Please Re-enter")  
              return redirect('library-login')
         else:
+            request.session['userid'] = uid
             f2 = open ('Userprofile.txt', 'r')
             f2.seek(int(pos))
             l = f2.readline()
@@ -96,7 +97,8 @@ def addbooks(request):
         bid = request.POST.get('bid')
         bname = request.POST.get('bname')
         aname = request.POST.get('aname')
-
+        
+       
         if len(str(bname)) == 0:
             messages.warning(request,"Missing Book Name") 
             return redirect('library-addbooks')
@@ -109,7 +111,7 @@ def addbooks(request):
             aname = str(aname)
             aname = "Anonymous"
 
-        pos = main.binary_search('Bindex.txt', str(bid))
+        pos = main.binary_search('Bindex.txt', (str(bid)))
 
         if pos != -1:
             messages.warning(request,"Book already present.Please try again")
@@ -118,7 +120,7 @@ def addbooks(request):
         f22 = open ('BData.txt', 'a')
         pos = f22.tell()
         f33 = open ('Bindex.txt', 'a')
-        buf = str(bid) + '|' + str(bname) + '|' + str(aname) + '|' + 'Y' + '|' + '#'
+        buf = (str(bid)) + '|' + str(bname) + '|' + str(aname) + '|' + 'Y' + '|' + '#'
         f22.write(buf)
         f22.write('\n')
         buf = str(bid) + '|' + str(pos) + '|' + '#'
@@ -148,7 +150,7 @@ def reopen_login(request):
 	return render(request,'reopenLogin.html')
 
 def borrowbook(request):
-
+    uid = request.session['userid']
     headings = ("ID","Title","Author","Availability")
     data = list()
     f1 = open('Bindex.txt', 'r')
@@ -165,14 +167,15 @@ def borrowbook(request):
        
     f.close()
     
-    if request.method == 'POST':
+    if request.method == 'POST': 
         count = 0
         f = open('Record.txt', 'r')
+        # with open('Record.txt', 'r') as f
         for l in f:
             l = l.split('|')
-            if l[0] ==  id:
+            if l[0] ==  uid:
                 count += 1
-
+        f.close()
         if count >= 3:
             messages.warning(request,"Cannot Borrow more than 3 Books")
             return redirect('library-borrowbook')
@@ -181,7 +184,6 @@ def borrowbook(request):
             today = date.today()
             enddate = today+timedelta(days=7)
             bbook = request.POST.get('bbid')
-
             if len(str(bbook)) == 0:
                 messages.warning(request,"You did not type anything")
                 return redirect('library-borrowbook')
@@ -203,7 +205,7 @@ def borrowbook(request):
                     f2.close() 
                     messages.success(request,"The book you have selected has been successfully borrowed. Please return it by:" +'\n'+ str(enddate))
 
-                    buf = id + '|' + bbook+ '|#\n'
+                    buf = uid + '|' + bbook+ '|#\n'
                     f3 = open('Record.txt', 'a')
                     f3.write(buf)
                     f3.close()
