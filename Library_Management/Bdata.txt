@@ -1,11 +1,7 @@
-12345|File Structures|Michael|Y|#
-23456|Web|Randy Connolly|Y|#
-34567|Software Testing|Paul C. Jorgensen|Y|#
-56789|cloud computing|Rajkumar Buyya|Y|#
-18181|Data Structures|Seymour Lipschutz|Y|#
-23849|aaa|bbb|N|#
-23945|abc|xyz|Y|#
-24456|xyz|bbb|N|#
-87485|jkdj|dkg|N|#
-98765|fjkdj|uuuu|N|#
-77777|MS Dhoni The Untold Story|gokul|Y|#
+11111|Web Technology and its Application|Randy Connolly|Y|#
+22222|Cloud computing and its application|Rajkumar Buyya|Y|#
+33333|File Structures|Michael J. Folk|Y|#
+44444|Software Testing|Paul C. Jorgensen|Y|#
+55555|Data Strucutures|Ellis Horowitz and Sartaj Sahni|Y|#
+66666|Database management system|, Ramez Elmasri and Shamkant B|Y|#
+66666|Database management system|Ramez Elmasri and Shamkant B|Y|#
