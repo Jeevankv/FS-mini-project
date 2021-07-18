@@ -200,7 +200,23 @@ def deletebooks(request):
         return render(request, 'deletebooks.html',{'headings':headings,'data':data})
 
 
-
+def displaybooks(request):
+    headings = ("ID","Title","Author","Availability")
+    data = list()
+    f1 = open('Bindex.txt', 'r')
+    f = open ("BData.txt", 'r')
+    norecord = 0
+    for line in f1:
+        norecord += 1
+        line = line.rstrip('\n')
+        word = line.split('|')
+        f.seek(int(word[1]))
+        line1 = f.readline().rstrip()
+        word1 = line1.split('|')
+        data.append((word1[0],word1[1],word1[2],word1[3]))
+       
+    f.close()
+    return render(request,'displaybooks.html',{'headings':headings,'data':data})
 
 
 def reopen_login(request):
