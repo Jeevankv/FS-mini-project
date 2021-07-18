@@ -4,7 +4,7 @@
 56789|cloud computing|Rajkumar Buyya|Y|#
 18181|Data Structures|Seymour Lipschutz|Y|#
 23849|aaa|bbb|N|#
-23945|abc|xyz|N|#
-24456|xyz|bbb|Y|#
+23945|abc|xyz|Y|#
+24456|xyz|bbb|N|#
 87485|jkdj|dkg|N|#
 98765|fjkdj|uuuu|N|#

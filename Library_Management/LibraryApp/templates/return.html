@@ -1,0 +1,75 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Library | Return</title>
+  <link rel="stylesheet" href="{% static 'return.css' %}">
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
+
+<body>
+  <nav>
+    <ul>
+      <li>
+        <a href="{% url 'library-home'%}">Home</a>
+        <a href="{% url 'library-borrowbook'%}">Borrow Books</a>
+        <a href="{% url 'library-returnbook'%}">Return Books</a>
+        <a class="btn btn-danger logout" href="{% url 'library-login' %}">Logout</a>
+      </li>
+    </ul>
+  </nav>
+  
+  <main>
+    <form action="{% url 'library-returnbook' %}" method="POST">
+      {% csrf_token %}
+      <input class="borrow-input" type="text" name="bbid" placeholder="Enter Book ID ">
+      <button type="submit" class="btn btn-outline-dark borrow-button">Return</button>
+    </form>
+
+
+    {% if messages %}
+  {% for message in messages %}
+  
+  <div class="alert alert-{{message.tags}} alert-dismissible fade show" role="alert">
+      <strong>{{ message }}</strong> 
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    {% endfor %}
+  {% endif %}
+
+
+  
+    <table class="table">
+      <tr class="table-header">
+        {% for header in headings %}
+        <th class="table-cell"> {{ header }}</th>
+        {% endfor %}
+      </tr>
+      {% for row in data %}
+      <tr class="table-row">
+        {% for cell in row %}
+        <td class="table-cell">{{ cell }}</td>
+        {% endfor %}
+      </tr>
+      {% endfor%}
+
+    </table>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
+      var alertList = document.querySelectorAll('.alert')
+      alertList.forEach(function (alert) {
+        new bootstrap.Alert(alert)
+      })</script>
+</body>
+
+</html>

@@ -221,4 +221,74 @@ def borrowbook(request):
         return render(request, 'borrow.html',{"data":data,"headings":headings})
 
 def returnbook(request):
-    return render(request, 'return.html')
+    import datetime as dt
+    from datetime import timedelta
+    date = dt.date.today()
+    uid = request.session['userid']
+    headings = ("ID","Title","Author","Availability")
+    data = list()
+    record_verification = list()
+    f = open ("Record.txt")
+
+ 
+    norecord =0
+    for line in f:
+        line = line.rstrip()
+        words = line.split('|')
+        if(words[0] == uid):
+            pos = main.binary_search('Bindex.txt', words[1])
+            if pos!=-1:
+                norecord +=1
+                f2 = open('BData.txt', 'r')
+                f2.seek(pos)
+                l1 = f2.readline()
+                l1 = l1.rstrip()
+                w1 = l1.split('|')
+                data.append((w1[0],w1[1],w1[2],w1[3]))
+                record_verification.append(w1[0])
+    f.close()
+    
+    if request.method == 'POST':
+        rbook = request.POST.get('bbid')
+
+        if len(rbook) == 0:
+            messages.warning(request,"Book ID is Missing!!")
+            return redirect('library-returnbook')
+        
+        if(rbook in record_verification):
+            pos = main.binary_search('Bindex.txt',rbook)
+
+            if pos != -1:
+                f1 = open('Bdata.txt','r+')
+                f1.seek(pos)
+                l1 = f1.readline().rstrip()
+                w1 = l1.split('|')
+
+                if(w1[3] == 'N'):
+                    messages.success(request,'The book you have selected has been successfully returned on'+'\n'+str(date))
+                    f1.seek(pos)
+                    line = w1[0] + '|' + w1[1] + '|' + w1[2] + '|Y|#'
+                    f1.write(line)
+
+                    f2=open('Record.txt','r')
+                    lines=f2.readlines()
+                    f2.close()
+                    f3=open('Record.txt','w')
+                    for l2 in lines:
+                        l3=l2.split('|')
+                        if l3[1] == rbook and l3[0] == id:
+                            continue
+                        else:
+                            f3.write(l2)
+                    f3.close()
+                    f1.close()
+                else:
+                    messages.warning(request,'This book has been returned, please select another book')
+                    return redirect('library-returnbook')
+                
+        else:
+            messages.warning(request, 'The book that you have entered is invalid. Please Re-enter a different book')
+            return redirect('library-returnbook')
+
+    else:
+        return render(request, 'return.html', {"data":data,"headings":headings})
