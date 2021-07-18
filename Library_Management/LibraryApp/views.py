@@ -6,6 +6,7 @@ from datetime import timedelta, date
 
 
 def login(request):
+    
     if request.method == 'POST':
         uid = request.POST.get('uid')
         password = request.POST.get('password')
@@ -30,7 +31,7 @@ def login(request):
 
 
     else:
-        return render(request, 'login.html',)
+        return render(request, 'login.html')
 
 def register(request):
 
@@ -39,8 +40,7 @@ def register(request):
         name = request.POST.get('name')
         email = request.POST.get('email')
         password = request.POST.get('password')
-    
-    
+
         if len(str(uid))==0 or len(str(name)) == 0 or len(str(email)) == 0 or len(str(password)) == 0:
             messages.warning(request,"You left one or more fields blank")
             return redirect('library-register')  
@@ -89,6 +89,7 @@ def adminhome(request):
 
 
 def libraryhome(request):
+    
     return render(request, 'index.html')
 
 
@@ -229,16 +230,15 @@ def returnbook(request):
     data = list()
     record_verification = list()
     f = open ("Record.txt")
-
  
-    norecord =0
+    
     for line in f:
         line = line.rstrip()
         words = line.split('|')
         if(words[0] == uid):
             pos = main.binary_search('Bindex.txt', words[1])
             if pos!=-1:
-                norecord +=1
+                
                 f2 = open('BData.txt', 'r')
                 f2.seek(pos)
                 l1 = f2.readline()
@@ -276,12 +276,13 @@ def returnbook(request):
                     f3=open('Record.txt','w')
                     for l2 in lines:
                         l3=l2.split('|')
-                        if l3[1] == rbook and l3[0] == id:
+                        if l3[1] == rbook and l3[0] == uid:
                             continue
                         else:
                             f3.write(l2)
                     f3.close()
                     f1.close()
+                    return redirect('library-returnbook')
                 else:
                     messages.warning(request,'This book has been returned, please select another book')
                     return redirect('library-returnbook')
