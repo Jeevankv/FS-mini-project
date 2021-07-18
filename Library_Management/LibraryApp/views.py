@@ -136,6 +136,72 @@ def addbooks(request):
     else:
         return render(request, 'addbooks.html')
 
+def deletebooks(request):
+
+    headings = ('ID','Title','Author','Availability')
+
+    data = list()
+
+    f1 = open('Bindex.txt', 'r')
+    f = open ("BData.txt", 'r')
+
+    for line in f1:
+        if not line.startswith('*'):
+            line = line.rstrip('\n')
+            word = line.split('|')
+            f.seek(int(word[1]))
+            line1 = f.readline().rstrip()
+            word1 = line1.split('|')
+            data.append((word1[0],word1[1],word1[2],word1[3]))
+
+    f1.close()   
+
+    if request.method == 'POST':
+        dbook = request.POST.get('dbid')
+        if len(dbook) == 0:
+            messages.warning(request,'Book ID Not Entered')
+            return redirect('library-deletebooks')
+        pos = main.binary_search('Bindex.txt', dbook)
+        if(pos == -1):
+            messages.warning(request,'Book not present. Please Re-enter')
+            return redirect('library-deletebooks')
+        else:
+            f = open ('BData.txt', 'r')
+            f.seek(pos)
+            l1 = f.readline().rstrip()
+            w1 = l1.split('|')
+            if(w1[3] == 'N'):
+                messages.warning(request,'Book currently borrowed. Please try another book')
+                return redirect('library-deletebooks')
+        index = -1
+
+        with open('Bindex.txt','r') as file:
+            for line in file:
+                words=line.split("|")
+                if(words[0] == dbook):
+                    index = int(words[1])
+        index = 0
+        with open("Bindex.txt",'r+') as file:
+            line = file.readline()
+            
+            while line:
+                words = line.split("|")
+                if words[0] == dbook:
+                    file.seek(index,0)
+                    file.write('*')
+                    break
+                else:
+                    index = file.tell()
+                    line = file.readline()
+        messages.success(request,'Book Successfully Removed')
+        return redirect('library-deletebooks')
+            
+    else:
+        return render(request, 'deletebooks.html',{'headings':headings,'data':data})
+
+
+
+
 
 def reopen_login(request):
 	f7=open('Bindex.txt','r')
@@ -249,7 +315,7 @@ def returnbook(request):
     f.close()
     
     if request.method == 'POST':
-        rbook = request.POST.get('bbid')
+        rbook = request.POST.get('rbid')
 
         if len(rbook) == 0:
             messages.warning(request,"Book ID is Missing!!")

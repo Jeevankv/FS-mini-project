@@ -30,8 +30,8 @@
   <main>
     <form action="{% url 'library-returnbook' %}" method="POST">
       {% csrf_token %}
-      <input class="borrow-input" type="text" name="bbid" placeholder="Enter Book ID ">
-      <button type="submit" class="btn btn-outline-dark borrow-button">Return</button>
+      <input class="return-input" type="text" name="rbid" placeholder="Enter Book ID ">
+      <button type="submit" class="btn btn-outline-dark return-button">Return</button>
     </form>
 
 
