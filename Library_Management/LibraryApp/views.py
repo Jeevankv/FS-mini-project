@@ -375,3 +375,39 @@ def returnbook(request):
 
     else:
         return render(request, 'return.html', {"data":data,"headings":headings})
+
+
+def search(request):
+    headings = ("ID","Name","Author","Availability")
+    data = list()
+    if request.method == 'POST':
+        search_word = request.POST.get('searched')
+        if len(str(search_word)) == 0:
+            messages.warning(request,"You did not type anything")
+            return redirect('library-home')
+        
+        pos = main.binary_search('Bindex.txt',str(search_word))
+        if (pos == -1):
+            messages.warning(request,"Sorry,this book does not exist")
+            return redirect('library-home')
+        else:
+            messages.success(request,"The book is available")
+            f2 = open('BData.txt', 'r')
+            f2.seek(pos)
+            l1 = f2.readline()
+            l1 = l1.rstrip()
+            w1 = l1.split('|')
+            bid = w1[0]
+            book = w1[1]
+            author = w1[2]
+            if(w1[3] == 'Y'):
+                availability = 'Available'
+            else:
+                availability = 'Unavailable'
+            data.append((w1[0],w1[1],w1[2],availability))
+            f2.close()
+            return render(request,'searchResult.html',{"headings":headings, "data":data})
+
+
+    else:
+        return render(request,'searchResult.html',{"headings":headings, "data":data})

@@ -21,9 +21,10 @@
       <a href="{% url 'library-home'%}">Home</a>
       <a href="{% url 'library-borrowbook'%}">Borrow Books</a>
       <a href="{% url 'library-returnbook'%}">Return Books</a>
-      <form action="#">
-        <input type="search" placeholder="Search">
-        <button class="btn btn-outline-warning">Search</button>
+      <form action="{% url 'library-searchResult' %}" method="POST">
+        {% csrf_token %}
+        <input type="search" placeholder="Search Books by ID" name="searched">
+        <button class="btn btn-outline-warning" type="submit">Search</button>
       </form>
       <a class="btn btn-danger logout" href="{% url 'library-login' %}">Logout</a>
     </li>

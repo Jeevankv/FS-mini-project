@@ -12,4 +12,5 @@ urlpatterns = [
     path('login/', views.reopen_login, name = 'library-reopenlogin'),
     path('borrow/', views.borrowbook, name = 'library-borrowbook'),
     path('return/', views.returnbook, name = 'library-returnbook'),
+    path('searchResult/', views.search, name = 'library-searchResult'),
 ]
