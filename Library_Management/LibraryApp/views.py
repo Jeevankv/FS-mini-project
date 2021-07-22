@@ -33,6 +33,8 @@ def login(request):
     else:
         return render(request, 'login.html')
 
+
+
 def register(request):
 
     if request.method == 'POST':
@@ -75,8 +77,11 @@ def adminLogin(request):
         email = request.POST.get('email')
         password = request.POST.get('password')
         if email == 'jeevankv18@gmail.com' and password == 'admin':
+            messages.success(request,"Login Successful!") 
             return redirect('library-adminhome')
-        return redirect('library-admin')
+        else:
+            messages.warning(request,"Invalid Credential")
+            return redirect('library-admin')
     else:
         return render(request, 'adminlogin.html')
 
