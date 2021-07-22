@@ -218,9 +218,9 @@ def displaybooks(request):
     data = list()
     f1 = open('Bindex.txt', 'r')
     f = open ("BData.txt", 'r')
-    norecord = 0
+    
     for line in f1:
-        norecord += 1
+        
         line = line.rstrip('\n')
         word = line.split('|')
         f.seek(int(word[1]))
@@ -251,9 +251,9 @@ def borrowbook(request):
     data = list()
     f1 = open('Bindex.txt', 'r')
     f = open ("BData.txt", 'r')
-    norecord = 0
+    
     for line in f1:
-        norecord += 1
+        
         line = line.rstrip('\n')
         word = line.split('|')
         f.seek(int(word[1]))
@@ -417,7 +417,7 @@ def search(request):
                 availability = 'Available'
             else:
                 availability = 'Unavailable'
-            data.append((w1[0],w1[1],w1[2],availability))
+            data.append((bid,book,author,availability))
             f2.close()
             return render(request,'searchResult.html',{"headings":headings, "data":data})
 
