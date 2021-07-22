@@ -194,11 +194,24 @@ def deletebooks(request):
                     index = file.tell()
                     line = file.readline()
         messages.success(request,'Book Successfully Removed')
+        reopen_deletebooks()
         return redirect('library-deletebooks')
             
     else:
         return render(request, 'deletebooks.html',{'headings':headings,'data':data})
 
+def reopen_deletebooks():
+	f7=open('Bindex.txt','r')
+	lines1=f7.readlines()
+	f7.close()
+	f8=open('Bindex.txt','w')
+	for line1 in lines1:
+		if line1.startswith('*'):
+			continue
+		else:
+			f8.write(line1)
+	f8.close()
+	return redirect('deletebooks.html')
 
 def displaybooks(request):
     headings = ("ID","Title","Author","Availability")
