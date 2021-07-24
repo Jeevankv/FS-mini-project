@@ -1,6 +1,9 @@
 11111|File Structures|Michael J. Folk|Y|#
-22222|Web Technology and its Application|Randy Connolly|N|#
-33333|Software Testing|Paul C. Jorgensen|N|#
+22222|Web Technology and its Application|Randy Connolly|Y|#
+33333|Software Testing|Paul C. Jorgensen|Y|#
 44444|Database management system|Ellis Horowitz and Sartaj Sahni|Y|#
 66666|Cloud computing and its application|Rajkumar Buyya|N|#
 55555|Sample book|sample author|Y|#
+55555|xyz|abc|Y|#
+88888|book1|author1|Y|#
+99999|abc|xyz|Y|#
